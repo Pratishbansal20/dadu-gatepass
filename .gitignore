@@ -1,5 +1,8 @@
 # Git ignore rules for dadu-gatepass project
 
+# Hackathon Submission
+hackathon_project_submission.md
+
 # Python
 __pycache__/
 *.pyc
