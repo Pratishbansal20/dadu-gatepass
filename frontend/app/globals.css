@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@layer base {
+  :root {
+    --background: 220 33% 97%;
+    --foreground: 220 30% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 30% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 10%;
+
+    --primary: 215 60% 20%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 38 92% 50%;
+    --secondary-foreground: 38 92% 10%;
+
+    --muted: 220 20% 93%;
+    --muted-foreground: 220 15% 50%;
+
+    --accent: 38 92% 50%;
+    --accent-foreground: 215 60% 10%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 20% 88%;
+    --input: 220 20% 88%;
+    --ring: 215 60% 35%;
+
+    --radius: 0.5rem;
+
+    --font-display: "DM Serif Display";
+    --font-sans: "Inter";
+    --font-mono: "JetBrains Mono";
+  }
+
+  .dark {
+    --background: 215 40% 8%;
+    --foreground: 220 20% 92%;
+
+    --card: 215 35% 12%;
+    --card-foreground: 220 20% 92%;
+
+    --popover: 215 35% 12%;
+    --popover-foreground: 220 20% 92%;
+
+    --primary: 38 92% 50%;
+    --primary-foreground: 215 40% 8%;
+
+    --secondary: 215 30% 18%;
+    --secondary-foreground: 220 20% 92%;
+
+    --muted: 215 30% 16%;
+    --muted-foreground: 220 15% 55%;
+
+    --accent: 215 30% 20%;
+    --accent-foreground: 220 20% 92%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 30% 20%;
+    --input: 215 30% 20%;
+    --ring: 38 92% 50%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display), serif;
+  }
+}
+
+@layer utilities {
+  .grain-texture {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 150px 150px;
+  }
+
+  .pass-card {
+    @apply rounded-xl border border-border bg-card shadow-lg relative overflow-hidden;
+    background-image: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+  }
+
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono font-medium tracking-wide uppercase;
+  }
+
+  .skeleton {
+    @apply animate-shimmer bg-gradient-to-r from-muted via-muted/60 to-muted;
+    background-size: 200% 100%;
+  }
+
+  .gate-panel {
+    @apply bg-card border border-border rounded-lg p-4;
+  }
+}
