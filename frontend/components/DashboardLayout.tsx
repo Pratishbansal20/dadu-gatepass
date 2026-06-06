@@ -44,7 +44,7 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
       </header>
 
       {/* Page hero */}
-      <div className="bg-gradient-to-br from-[#1e293b] to-[#0f172a] text-white py-10 px-4">
+      <div className="bg-gradient-to-br from-slate-800 to-slate-900 text-white py-10 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-display">{title}</h1>
           {subtitle && <p className="mt-2 text-slate-400 text-sm">{subtitle}</p>}

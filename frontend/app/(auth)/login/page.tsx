@@ -49,7 +49,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-[#0f172a] flex grain-texture">
       {/* Left panel */}
-      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-[#1e293b] to-[#0f172a] border-r border-white/5">
+      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-slate-800 to-slate-900 border-r border-white/5">
         <div className="flex items-center gap-3">
           <ShieldCheck className="w-8 h-8 text-amber-400" />
           <span className="text-white font-display text-xl">BITS Gatepass</span>
