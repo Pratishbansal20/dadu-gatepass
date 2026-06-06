@@ -2,9 +2,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/auth-store";
-import { passesApi, authApi, type Pass, type PermanentPass, ApiError } from "@/lib/api";
+import { passesApi, type Pass, type PermanentPass, ApiError } from "@/lib/api";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { PassCard } from "@/components/passes/PassCard";
+import { PassCardSkeleton } from "@/components/passes/PassCardSkeleton";
 import { PermanentPassCard } from "@/components/passes/PermanentPassCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,26 +18,19 @@ export default function StudentDashboard() {
   const { user, accessToken, isLoggedIn } = useAuthStore();
   const { toast } = useToast();
 
-  const [passes, setPasses] = useState<Pass[]>([]);
+  const [passes,        setPasses]        = useState<Pass[]>([]);
   const [permanentPass, setPermanentPass] = useState<PermanentPass | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
+  const [loading,       setLoading]       = useState(true);
+  const [showForm,      setShowForm]      = useState(false);
+  const [submitting,    setSubmitting]    = useState(false);
 
   const [form, setForm] = useState({
-    visitor_name: "",
-    visitor_phone: "",
-    purpose: "",
-    visit_date: "",
-    entry_time: "",
-    exit_time: "",
+    visitor_name: "", visitor_phone: "", purpose: "",
+    visit_date: "", entry_time: "", exit_time: "",
   });
 
   useEffect(() => {
-    if (!isLoggedIn || user?.role !== "STUDENT") {
-      router.replace("/login");
-      return;
-    }
+    if (!isLoggedIn || user?.role !== "STUDENT") { router.replace("/login"); return; }
     loadData();
   }, [isLoggedIn]);
 
@@ -83,61 +77,72 @@ export default function StudentDashboard() {
       subtitle="Manage your campus passes and visitor requests"
     >
       <div className="grid gap-8">
-        {/* Permanent Pass */}
+
+        {/* ── Permanent Pass ── */}
         <section>
           <h2 className="text-xl font-display text-foreground mb-4">Your Resident Pass</h2>
-          {permanentPass ? (
+          {loading ? (
+            <div className="max-w-sm rounded-2xl border border-border overflow-hidden">
+              <div className="h-36 skeleton" />
+              <div className="h-48 skeleton border-t border-border" />
+              <div className="h-1.5 skeleton" />
+            </div>
+          ) : permanentPass ? (
             <PermanentPassCard pass={permanentPass} />
           ) : (
-            <div className="h-24 skeleton rounded-xl" />
+            <div className="rounded-xl border border-dashed border-border py-10 px-6 text-center text-muted-foreground max-w-sm">
+              <p className="text-sm">Permanent pass not yet issued.</p>
+            </div>
           )}
         </section>
 
-        {/* Visitor Passes */}
+        {/* ── Visitor Passes ── */}
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-display text-foreground">Visitor Day Passes</h2>
-            <Button
-              size="sm"
-              variant="amber"
-              onClick={() => setShowForm((v) => !v)}
-            >
-              {showForm ? <X className="w-4 h-4 mr-1" /> : <Plus className="w-4 h-4 mr-1" />}
-              {showForm ? "Cancel" : "New Request"}
+            <Button size="sm" variant="amber" onClick={() => setShowForm((v) => !v)}>
+              {showForm
+                ? <><X className="w-4 h-4 mr-1" />Cancel</>
+                : <><Plus className="w-4 h-4 mr-1" />New Request</>
+              }
             </Button>
           </div>
 
           {showForm && (
-            <form
-              onSubmit={handleSubmit}
-              className="bg-card border border-border rounded-xl p-6 mb-6 space-y-4 animate-fade-in"
-            >
-              <h3 className="font-semibold text-foreground">Request Visitor Pass</h3>
+            <form onSubmit={handleSubmit}
+              className="bg-card border border-border rounded-xl p-6 mb-6 space-y-4 shadow-sm animate-fade-in">
+              <h3 className="font-display text-base text-foreground">Request Visitor Pass</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <Label>Visitor Name</Label>
-                  <Input required value={form.visitor_name} onChange={(e) => setForm((f) => ({ ...f, visitor_name: e.target.value }))} placeholder="Full name" />
+                  <Input required value={form.visitor_name}
+                    onChange={(e) => setForm((f) => ({ ...f, visitor_name: e.target.value }))} placeholder="Full name" />
                 </div>
                 <div className="space-y-1.5">
                   <Label>Visitor Phone</Label>
-                  <Input required type="tel" pattern="[0-9]{10}" maxLength={10} value={form.visitor_phone} onChange={(e) => setForm((f) => ({ ...f, visitor_phone: e.target.value }))} placeholder="10-digit number" />
+                  <Input required type="tel" pattern="[0-9]{10}" maxLength={10} value={form.visitor_phone}
+                    onChange={(e) => setForm((f) => ({ ...f, visitor_phone: e.target.value }))} placeholder="10-digit number" />
                 </div>
                 <div className="space-y-1.5 sm:col-span-2">
                   <Label>Purpose of Visit</Label>
-                  <Input required value={form.purpose} onChange={(e) => setForm((f) => ({ ...f, purpose: e.target.value }))} placeholder="Reason for visit" />
+                  <Input required value={form.purpose}
+                    onChange={(e) => setForm((f) => ({ ...f, purpose: e.target.value }))} placeholder="Reason for visit" />
                 </div>
                 <div className="space-y-1.5">
                   <Label>Visit Date</Label>
-                  <Input required type="date" value={form.visit_date} onChange={(e) => setForm((f) => ({ ...f, visit_date: e.target.value }))} />
+                  <Input required type="date" value={form.visit_date}
+                    onChange={(e) => setForm((f) => ({ ...f, visit_date: e.target.value }))} />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <div className="space-y-1.5">
                     <Label>Entry Time</Label>
-                    <Input required type="time" value={form.entry_time} onChange={(e) => setForm((f) => ({ ...f, entry_time: e.target.value }))} />
+                    <Input required type="time" value={form.entry_time}
+                      onChange={(e) => setForm((f) => ({ ...f, entry_time: e.target.value }))} />
                   </div>
                   <div className="space-y-1.5">
                     <Label>Exit Time</Label>
-                    <Input required type="time" value={form.exit_time} onChange={(e) => setForm((f) => ({ ...f, exit_time: e.target.value }))} />
+                    <Input required type="time" value={form.exit_time}
+                      onChange={(e) => setForm((f) => ({ ...f, exit_time: e.target.value }))} />
                   </div>
                 </div>
               </div>
@@ -149,10 +154,8 @@ export default function StudentDashboard() {
           )}
 
           {loading ? (
-            <div className="space-y-4">
-              {[1, 2].map((i) => (
-                <div key={i} className="h-36 skeleton rounded-xl" />
-              ))}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[1, 2].map((i) => <PassCardSkeleton key={i} />)}
             </div>
           ) : passes.length === 0 ? (
             <div className="rounded-xl border border-dashed border-border p-12 text-center text-muted-foreground">
@@ -161,12 +164,11 @@ export default function StudentDashboard() {
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2">
-              {passes.map((p) => (
-                <PassCard key={p.id} pass={p} />
-              ))}
+              {passes.map((p) => <PassCard key={p.id} pass={p} />)}
             </div>
           )}
         </section>
+
       </div>
     </DashboardLayout>
   );

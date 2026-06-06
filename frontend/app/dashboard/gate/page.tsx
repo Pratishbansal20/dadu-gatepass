@@ -95,7 +95,7 @@ export default function GateDashboard() {
       const pass = await gateApi.scanQr(accessToken, qrToken.trim());
       setScanResult({
         type: "success",
-        message: `Entry granted — ${pass.visitor_name ?? pass.applicant?.full_name}`,
+        message: `Entry granted: ${pass.visitor_name ?? pass.applicant?.full_name}`,
         pass,
       });
       setQrToken("");
@@ -120,7 +120,7 @@ export default function GateDashboard() {
       const result = await gateApi.scanRfid(accessToken, rfidTag.trim());
       setScanResult({
         type: "success",
-        message: `Vehicle authorized — ${result.faculty_name}`,
+        message: `Vehicle authorized: ${result.faculty_name}`,
         rfid: result,
       });
       setRfidTag("");
@@ -268,7 +268,7 @@ export default function GateDashboard() {
               </Button>
             </form>
             <p className="text-xs text-slate-600 font-mono">
-              TIP — Hardware QR scanners that emit token + ENTER will auto-submit this form.
+              TIP: Hardware QR scanners that emit token + ENTER will auto-submit this form.
             </p>
           </div>
         )}
@@ -320,7 +320,7 @@ export default function GateDashboard() {
         {panel === "active" && (
           <div className="space-y-4 animate-fade-in">
             <div className="flex items-center justify-between">
-              <h2 className="text-base font-display text-white">Active Passes — Today</h2>
+              <h2 className="text-base font-display text-white">Active Passes · Today</h2>
               <button
                 onClick={loadActivePasses}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:bg-slate-700 transition-colors"

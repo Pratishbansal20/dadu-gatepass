@@ -59,7 +59,7 @@ export default function LoginPage() {
             "Secure. Swift.<br />Accountable."
           </blockquote>
           <p className="mt-4 text-slate-400 text-sm">
-            Campus gate pass management system — BITS Pilani
+            Campus gate pass management system · BITS Pilani
           </p>
         </div>
         <div className="grid grid-cols-2 gap-4 text-xs text-slate-500">

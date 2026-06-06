@@ -33,7 +33,7 @@ interface PassCardProps {
 export function PassCard({ pass, actions }: PassCardProps) {
   const status = STATUS_CONFIG[pass.status] ?? STATUS_CONFIG.PENDING;
   const accent = TYPE_ACCENT[pass.pass_type] ?? "border-l-slate-300";
-  const name = pass.visitor_name ?? pass.applicant?.full_name ?? "—";
+  const name = pass.visitor_name ?? pass.applicant?.full_name ?? "Unknown";
 
   return (
     <div

@@ -26,7 +26,7 @@ export function PermanentPassCard({ pass }: PermanentPassCardProps) {
         <div className="flex items-center gap-2 mb-5">
           <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
           <span className="text-[10px] font-mono tracking-[0.18em] text-amber-400 uppercase">
-            BITS Pilani — Campus Pass
+            BITS Pilani · Campus Pass
           </span>
         </div>
 
@@ -56,7 +56,7 @@ export function PermanentPassCard({ pass }: PermanentPassCardProps) {
 
           <img
             src={`data:image/png;base64,${pass.qr_image_base64}`}
-            alt="Permanent pass QR code — present at gate for scanning"
+            alt="Permanent pass QR code, present at gate for scanning"
             className="w-40 h-40 block"
             draggable={false}
           />

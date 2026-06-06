@@ -53,7 +53,7 @@ export default function VerifyPage({ params }: PageProps) {
             <ShieldCheck className="w-8 h-8 text-amber-400" />
           </div>
           <h1 className="text-2xl font-display text-white">Visitor Entry Verification</h1>
-          <p className="text-slate-400 text-sm mt-2">BITS Pilani Campus — Gate Access</p>
+          <p className="text-slate-400 text-sm mt-2">BITS Pilani Campus · Gate Access</p>
         </div>
 
         <div className="bg-[#1e293b] rounded-2xl border border-white/10 p-8 shadow-2xl">
@@ -128,7 +128,7 @@ export default function VerifyPage({ params }: PageProps) {
             <div className="text-center space-y-5">
               <div className="flex items-center justify-center gap-2 text-green-400">
                 <CheckCircle2 className="w-5 h-5" />
-                <span className="font-semibold">OTP Verified — Show this QR to gate security</span>
+                <span className="font-semibold">OTP Verified · Show this QR to gate security</span>
               </div>
 
               <div className="bg-white rounded-xl p-4 inline-block shadow-lg">

@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatDate(iso: string | undefined): string {
-  if (!iso) return "—";
+  if (!iso) return "";
   return new Date(iso).toLocaleDateString("en-IN", {
     day: "2-digit",
     month: "short",
@@ -15,7 +15,7 @@ export function formatDate(iso: string | undefined): string {
 }
 
 export function formatTime(t: string | undefined): string {
-  if (!t) return "—";
+  if (!t) return "";
   const [h, m] = t.split(":");
   const hour = parseInt(h);
   const suffix = hour >= 12 ? "PM" : "AM";
@@ -24,7 +24,7 @@ export function formatTime(t: string | undefined): string {
 }
 
 export function formatDateTime(iso: string | undefined): string {
-  if (!iso) return "—";
+  if (!iso) return "";
   return new Date(iso).toLocaleString("en-IN", {
     day: "2-digit",
     month: "short",
